@@ -1,0 +1,14 @@
+services:
+  bbforum-frontend:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - /opt/app/node_modules
+      - .:/opt/app
+    networks:
+      - backend
+networks:
+  backend:
+    external:
+      name: "bbforum-network"
