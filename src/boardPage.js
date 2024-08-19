@@ -12,9 +12,12 @@ import {
   ListItemText, 
   ListItemAvatar, 
   Avatar, 
-  Divider 
+  Divider,
+  Card,
+  CardContent,
 } from "@mui/material";
 import { format } from "date-fns";
+import { PlayerList } from "./playerList";
 
 // ダミーデータ
 const initialPosts = [
@@ -54,61 +57,71 @@ function BoardPage() {
   );
 
   return (
-    <Box>
-      <Typography variant="h4" gutterBottom>{team}掲示板</Typography>
-      
-      {isUserSignIn ? (
-        <Box component="form" onSubmit={handleSubmit} mb={4}>
-          <TextField
-            fullWidth
-            label="お名前"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            margin="normal"
-          />
-          <TextField
-            fullWidth
-            label="投稿内容"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            margin="normal"
-            multiline
-            rows={4}
-          />
-          <Button type="submit" variant="contained" color="primary">
-            投稿
-          </Button>
-        </Box>
-      ) : (
-        <Typography>ログインすると投稿できます。</Typography>
-      )}
+    <Box width="100%">
+      <Typography align="center" variant="h4" gutterBottom>{team}掲示板</Typography>
+      <Box display="flex" p={2} gap={2}> 
+      <Card flexGrow={1} variant="outlined" sx={{ flex: 1 }}>
+        <CardContent>
+        {isUserSignIn ? (
+          <Box component="form" onSubmit={handleSubmit} mb={4}>
+            <TextField
+              fullWidth
+              label="お名前"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              margin="normal"
+            />
+            <TextField
+              fullWidth
+              label="投稿内容"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              margin="normal"
+              multiline
+              rows={4}
+            />
+            <Button type="submit" variant="contained" color="primary">
+              投稿
+            </Button>
+          </Box>
+        ) : (
+          <Typography>ログインすると投稿できます。</Typography>
+        )}
 
-      <List>
-        {filteredPosts.map((post, index) => (
-          <React.Fragment key={post.id}>
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar>{post.name[0]}</Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={post.name}
-                secondary={
-                  <>
-                    <Typography component="span" variant="body2" color="text.primary">
-                      {post.content}
-                    </Typography>
-                    <br />
-                    <Typography component="span" variant="caption" color="text.secondary">
-                      {format(new Date(post.createdAt), 'yyyy/MM/dd HH:mm')}
-                    </Typography>
-                  </>
-                }
-              />
-            </ListItem>
-            {index < filteredPosts.length - 1 && <Divider variant="inset" component="li" />}
-          </React.Fragment>
-        ))}
-      </List>
+        <List>
+          {filteredPosts.map((post, index) => (
+            <React.Fragment key={post.id}>
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                  <Avatar>{post.name[0]}</Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={post.name}
+                  secondary={
+                    <>
+                      <Typography component="span" variant="body2" color="text.primary">
+                        {post.content}
+                      </Typography>
+                      <br />
+                      <Typography component="span" variant="caption" color="text.secondary">
+                        {format(new Date(post.createdAt), 'yyyy/MM/dd HH:mm')}
+                      </Typography>
+                    </>
+                  }
+                />
+              </ListItem>
+              {index < filteredPosts.length - 1 && <Divider variant="inset" component="li" />}
+            </React.Fragment>
+          ))}
+        </List>
+        </CardContent>
+      </Card>
+      <Card flex={1} variant="outlined" sx={{ flexGrow: 0 }}>
+        <CardContent sx={{ p: 4 }}>
+          <PlayerList />
+        </CardContent>
+      </Card>
+      </Box>
     </Box>
   );
 }
