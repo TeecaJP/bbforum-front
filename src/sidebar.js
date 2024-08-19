@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { Dashboard as DashboardIcon, Forum as ForumIcon } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
+import StarRateIcon from '@mui/icons-material/StarRate';
 
 const Logo = styled(Typography)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -29,24 +30,26 @@ const StyledListItem = styled(ListItem)(({ theme }) => ({
 
 const teams = [
   { league: 'セ・リーグ', teams: [
-    { name: "巨人", path: "/board/giants" },
     { name: "阪神", path: "/board/tigers" },
-    { name: "中日", path: "/board/dragons" },
-    { name: "ヤクルト", path: "/board/swallows" },
-    { name: "DeNA", path: "/board/baystars" },
     { name: "広島", path: "/board/carp" },
+    { name: "DeNA", path: "/board/baystars" },
+    { name: "巨人", path: "/board/giants" },
+    { name: "ヤクルト", path: "/board/swallows" },
+    { name: "中日", path: "/board/dragons" },
   ]},
   { league: 'パ・リーグ', teams: [
-    { name: "ソフトバンク", path: "/board/hawks" },
-    { name: "西武", path: "/board/lions" },
-    { name: "楽天", path: "/board/eagles" },
-    { name: "ロッテ", path: "/board/marines" },
-    { name: "日本ハム", path: "/board/fighters" },
     { name: "オリックス", path: "/board/buffaloes" },
+    { name: "ロッテ", path: "/board/marines" },
+    { name: "ソフトバンク", path: "/board/hawks" },
+    { name: "楽天", path: "/board/eagles" },
+    { name: "西武", path: "/board/lions" },
+    { name: "日本ハム", path: "/board/fighters" },
   ]},
 ];
 
-function Sidebar() {
+const favoriteTeam = { name: "阪神タイガース", path: "/board/tigers" }
+
+function Sidebar({ currentPath }) {
   return (
     <Drawer
       variant="permanent"
@@ -64,8 +67,20 @@ function Sidebar() {
       </Box>
       <Divider />
       <List>
+      { currentPath === "/" ? (
         <StyledListItem 
-          button 
+          button
+          component={Link} 
+          to={favoriteTeam.path}
+        >
+          <ListItemIcon>
+            <StarRateIcon />
+          </ListItemIcon>
+          <ListItemText primary={ favoriteTeam.name } />
+        </StyledListItem>
+      ) : (
+        <StyledListItem
+          button
           component={Link} 
           to="/"
         >
@@ -74,6 +89,7 @@ function Sidebar() {
           </ListItemIcon>
           <ListItemText primary="ダッシュボード" />
         </StyledListItem>
+      )}
       </List>
       <Divider />
       {teams.map((league) => (
