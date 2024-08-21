@@ -1,3 +1,5 @@
+import React from "react";
+
 // Dummy
 const examplePlayerList = [
   {id: 0, number: "0", name: "監督", position: "監督"},
@@ -17,7 +19,7 @@ const examplePlayerList = [
   {id: 14, number: "14", name: "外野手-4", position: "外野手"},
 ];
 
-export function PlayerList() {
+function PlayerList() {
   const groupedPlayers = examplePlayerList.reduce((groups, player) => {
     const { position } = player;
     if (!groups[position]) {
@@ -47,3 +49,5 @@ export function PlayerList() {
     </div>
   );
 }
+
+export default PlayerList;
