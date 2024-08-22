@@ -8,7 +8,8 @@ import {
   ListItemText, 
   Box, 
   Typography, 
-  Avatar 
+  Avatar,
+  Divider
 } from "@mui/material";
 import { Dashboard as DashboardIcon } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
@@ -50,12 +51,12 @@ const favoriteTeam = { name: "阪神タイガース", path: "/board/tigers" }
 
 function Sidebar({ currentPath }) {
   return (
-    <Drawer
-      variant="permanent"
+    <Box
       sx={{
-        width: 240,
-        flexShrink: 0,
-        [`& .MuiDrawer-paper`]: { width: 240, boxSizing: 'border-box' },
+        width: '100%',
+        padding: 2,
+        bgcolor: 'background.paper',
+        boxSizing: 'border-box',
       }}
     >
       <Logo variant="h6">BBforum</Logo>
@@ -63,6 +64,7 @@ function Sidebar({ currentPath }) {
         <Avatar sx={{ mr: 2 }}>U</Avatar>
         <Typography>Username</Typography>
       </Box>
+      <Divider />
       <List>
       { currentPath === "/" ? (
         <StyledListItem 
@@ -88,6 +90,7 @@ function Sidebar({ currentPath }) {
         </StyledListItem>
       )}
       </List>
+      <Divider />
       {teams.map((league) => (
         <React.Fragment key={league.league}>
           <Typography variant="subtitle1" sx={{ px: 2, py: 1, fontWeight: 'bold' }}>
@@ -107,7 +110,7 @@ function Sidebar({ currentPath }) {
           </List>
         </React.Fragment>
       ))}
-    </Drawer>
+    </Box>
   );
 }
 

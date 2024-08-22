@@ -31,7 +31,7 @@ const teams = [
 
 function TeamCard({ team }) {
   return (
-    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <Card sx={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Link to={team.path} style={{ textDecoration: 'none', color: 'inherit', flexGrow: 1 }}>
         <CardActionArea sx={{ height: '100%' }}>
           <CardMedia
