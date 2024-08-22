@@ -30,8 +30,10 @@ function App() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <Sidebar currentPath={location.pathname} />
-      <Box sx={{ flexGrow: 1, p: 3 }}>
+      <Box sx={{ boxShadow: '1px 0px 10px rgba(0, 0, 0, 0.1)' }}>
+        <Sidebar currentPath={location.pathname} />
+      </Box>
+      <Box sx={{ flexGrow: 1, p: 2 }}>
         <Routes>
           <Route path="/" element={<TopPage />} />
           <Route path="/board/:team" element={<BoardPage />} />

@@ -6,12 +6,11 @@ import {
   ListItem, 
   ListItemIcon, 
   ListItemText, 
-  Divider, 
   Box, 
   Typography, 
   Avatar 
 } from "@mui/material";
-import { Dashboard as DashboardIcon, Forum as ForumIcon } from "@mui/icons-material";
+import { Dashboard as DashboardIcon } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import StarRateIcon from '@mui/icons-material/StarRate';
 
@@ -60,12 +59,10 @@ function Sidebar({ currentPath }) {
       }}
     >
       <Logo variant="h6">BBforum</Logo>
-      <Divider />
       <Box sx={{ p: 2, display: 'flex', alignItems: 'center' }}>
         <Avatar sx={{ mr: 2 }}>U</Avatar>
         <Typography>Username</Typography>
       </Box>
-      <Divider />
       <List>
       { currentPath === "/" ? (
         <StyledListItem 
@@ -91,10 +88,9 @@ function Sidebar({ currentPath }) {
         </StyledListItem>
       )}
       </List>
-      <Divider />
       {teams.map((league) => (
         <React.Fragment key={league.league}>
-          <Typography variant="subtitle2" sx={{ px: 2, py: 1, fontWeight: 'bold' }}>
+          <Typography variant="subtitle1" sx={{ px: 2, py: 1, fontWeight: 'bold' }}>
             {league.league}
           </Typography>
           <List>
@@ -109,7 +105,6 @@ function Sidebar({ currentPath }) {
               </StyledListItem>
             ))}
           </List>
-          <Divider />
         </React.Fragment>
       ))}
     </Drawer>
