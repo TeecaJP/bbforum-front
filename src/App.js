@@ -5,6 +5,7 @@ import Header from "./header";
 import TopPage from "./topPage";
 import BoardPage from "./boardPage";
 import Sidebar from "./sidebar";
+import SearchBar from './searchBar.';
 import Login from "./login"; 
 import Box from "@mui/material/Box";
 import {
@@ -30,14 +31,17 @@ function App() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <Box sx={{ boxShadow: '1px 0px 10px rgba(0, 0, 0, 0.1)' }}>
+      <Box>
         <Sidebar currentPath={location.pathname} />
       </Box>
-      <Box sx={{ flexGrow: 1, p: 2 }}>
+      <Box sx={{ width: '70%' }}>
         <Routes>
           <Route path="/" element={<TopPage />} />
           <Route path="/board/:team" element={<BoardPage />} />
         </Routes>
+      </Box>
+      <Box>
+        <SearchBar />
       </Box>
     </Box>
   );
