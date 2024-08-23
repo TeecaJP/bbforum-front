@@ -18,7 +18,10 @@ import {
   Autocomplete,
   Paper,
   styled,
+  Fab,
+  Tooltip,
 } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
 import { format, formatDistanceToNow } from "date-fns";
 import { ja } from "date-fns/locale";
 import PlayerList from "./playerList";
@@ -40,8 +43,8 @@ function BoardPage() {
   const [posts, setPosts] = useState(sampleData);
   const [tags, setTags] = useState([]);
 
-  //const isUserSignIn = useSelector(selectIsUserSignIn);
-  const isUserSignIn = true;
+  const isUserSignIn = useSelector(selectIsUserSignIn);
+  //const isUserSignIn = true;
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
@@ -132,7 +135,16 @@ function BoardPage() {
           </Box>
         ) :  (
           <Box flexGrow={1} sx={{ flex: 1 }}> 
-            <Typography>ログインすると投稿できます。</Typography>
+            <Tooltip title="ログインすると投稿ができます。" followCursor>
+              <Card sx={{ paddingLeft: 1, paddingRight: 1}}>
+                <CardContent sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <Typography>あなたの意見を投稿してみましょう！</Typography>
+                  <Fab size="small" color="primary" aria-label="edit">
+                    <EditIcon />
+                  </Fab>
+                </CardContent>
+              </Card>
+            </Tooltip>
           </Box>
         )}
           <Box sx={{ height: '100vh', overflow: 'hidden' }}>
