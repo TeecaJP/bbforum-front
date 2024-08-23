@@ -15,11 +15,22 @@ import {
   Card,
   CardContent,
   Chip,
+  Autocomplete,
+  Paper,
+  styled,
 } from "@mui/material";
 import { format, formatDistanceToNow } from "date-fns";
 import { ja } from "date-fns/locale";
 import PlayerList from "./playerList";
 import { sampleData } from "./src/sampleData";
+
+// Sample Tags
+const availableTags = ['投手-1', '投手-2', '投手-3', '野手-1', '野手-2', '野手-3', '野手-4', '野手-5'];
+
+const CustomPaper = styled(Paper)({
+  maxHeight: '10rem', 
+  overflow: 'auto', 
+});
 
 function BoardPage() {
   const { team } = useParams();
@@ -27,8 +38,10 @@ function BoardPage() {
   const [username, setUsername] = useState("");
   const [content, setContent] = useState("");
   const [posts, setPosts] = useState(sampleData);
+  const [tags, setTags] = useState([]);
 
-  const isUserSignIn = useSelector(selectIsUserSignIn);
+  //const isUserSignIn = useSelector(selectIsUserSignIn);
+  const isUserSignIn = true;
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
@@ -45,6 +58,10 @@ function BoardPage() {
       setContent("");
     }
   }, [userId, content, posts]);
+
+  const handleTagChange = (event, newValue) => {
+    setTags(newValue);
+  };
 
   const filteredPosts = useMemo(() => 
     posts,
@@ -70,23 +87,46 @@ function BoardPage() {
       <Box flexGrow={1} sx={{ flex: 1 }}>
         {isUserSignIn ? (
           <Box component="form" onSubmit={handleSubmit} mb={4}>
+            {/*
             <TextField
               fullWidth
               label="お名前"
               value={userId}
               onChange={(e) => setUsername(e.target.value)}
-              margin="normal"
+              sx={{ marginBottom: 1 }}
             />
+            */}
             <TextField
               fullWidth
               label="投稿内容"
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              margin="normal"
+              sx={{ marginBottom: 1 }}
               multiline
               rows={4}
             />
-            <Button type="submit" variant="contained" color="primary">
+            <Autocomplete
+              multiple
+              options={availableTags}
+              value={tags}
+              onChange={handleTagChange}
+              sx={{ marginBottom: 1 }}
+              PaperComponent={(props) => <CustomPaper {...props} />}
+              renderInput={(params) => (
+                <TextField {...params} variant="outlined" label="タグ" placeholder="タグを選択" />
+              )}
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip
+                    key={option}
+                    label={option}
+                    {...getTagProps({ index })}
+                    variant="outlined"
+                  />
+                ))
+              }
+            />
+            <Button type="submit" variant="contained" color="primary" sx={{ marginTop: 1 }}>
               投稿
             </Button>
           </Box>
